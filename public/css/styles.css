@@ -1,0 +1,81 @@
+@font-face {
+  font-family: "Raleway-Light";
+  src: url("../fonts/Raleway-Light.ttf"); }
+@font-face {
+  font-family: "Raleway-Regular";
+  src: url("../fonts/Raleway-Regular.ttf"); }
+@font-face {
+  font-family: "Raleway-Medium";
+  src: url("../fonts/Raleway-Medium.ttf"); }
+@font-face {
+  font-family: "Raleway-Bold";
+  src: url("../fonts/Raleway-Bold.ttf"); }
+
+h1 {
+	font-size: 5em;
+}
+
+body {
+	font-family: "Raleway-Regular";
+	margin-bottom: 100px;
+}
+
+.table-style {
+  width: 100%; 
+}
+
+#table {
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+
+#table td {
+  border-left: 1px solid #ddd;
+}
+
+form label {
+	color: #555;
+	font-size: 22px;
+	margin-left: 150px;
+}
+
+input {
+	height: 30px;
+}
+
+.title {
+	font-family: "Raleway-Medium";
+	margin-bottom: 60px;
+}
+
+form {
+	margin-bottom: 50px;
+}
+
+.panel-body {
+	margin-top: 50px;
+}
+
+.panel {
+	margin-bottom: 50px;
+}
+
+._panel-heading {
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 10px;
+  padding: 20px;
+  font-family: "Raleway-Medium";
+  letter-spacing: 5px;
+  background-color: transparent;
+  color: #555; 
+}
+
+._panel-heading h1 {
+	padding-bottom: -20px;
+}
+
+table tr td {
+	font-size: 18px;
+}
