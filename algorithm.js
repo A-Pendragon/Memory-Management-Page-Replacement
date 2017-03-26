@@ -12,9 +12,23 @@
         { id: 2 },
         { id: 1 },
         { id: 3 }
-    ], 3, "optimal"));
+    ], 3, "lfu"));
+
+    // let spass = [
+    //     { id: 1 },
+    //     { id: 2 },
+    //     { id: 3 }
+    // ];
+    //
+    // let value = spass.find(function (element) {
+    //    return element.id === 2;
+    // });
+    //
+    // value.id = 5;
+    // console.log(spass);
 
     function pageReplacement(pageStream, frameLength, replacementType) {
+        // let pageFrequency = [];
         let frameHeader = 0;
         let frameStream = [];
         let frame = [];
@@ -22,11 +36,9 @@
         if(replacementType === 'fifo'){
             for(let pageHeader = 0; pageHeader < pageStream.length; pageHeader++){
                 let pageFault = true;
-                let isPageExisting = (frame.find(
-                    function (page) {
-                        return page.id === pageStream[pageHeader].id;
-                    })
-                ) !== undefined;
+                let isPageExisting = (frame.find(function (page) {
+                    return page.id === pageStream[pageHeader].id;
+                })) !== undefined;
 ;
                 if(isPageExisting){
                     pageFault = false;
@@ -49,11 +61,9 @@
         if(replacementType === "optimal"){
             for(let pageHeader = 0; pageHeader < pageStream.length; pageHeader++){
                 let pageFault = true;
-                let isPageExisting = (
-                    frame.find(function (page) {
-                        return page.id === pageStream[pageHeader].id;
-                    })
-                ) !== undefined;
+                let isPageExisting = (frame.find(function (page) {
+                    return page.id === pageStream[pageHeader].id;
+                })) !== undefined;
 
                 if(isPageExisting){
                     pageFault = false;
@@ -95,7 +105,38 @@
         }
 
         if(replacementType === "lfu"){
+            for(let pageHeader = 0; pageHeader < pageStream.length; pageHeader++){
+                let pageFault = true;
+                let pageFound = {};
+                let isPageExisting = (pageFound = frame.find(function (page) {
+                    return page.id === pageStream[pageHeader].id;
+                })) !== undefined;
 
+                if(isPageExisting){
+                    pageFault = false;
+                    pageFound.frequency++;
+                }else{
+                    if(frameHeader < frameLength){
+                        frame[frameHeader] = pageStream[pageHeader];
+                        frame[frameHeader].frequency = 1;
+                        frameHeader++;
+                    }else {
+                        let pageFrequencies = [];
+                        for(let frameCell = 0; frameCell < frame.length; frameCell++){
+                            pageFrequencies.push(frame[frameCell].frequency);
+                        }
+
+                        let indexOfMinimum = pageFrequencies.indexOf(Math.min.apply(Math, pageFrequencies));
+                        frame[indexOfMinimum] = pageStream[pageHeader];
+                        frame[indexOfMinimum].frequency = 1;
+                    }
+                }
+
+                frameStream.push({
+                    pageFault: pageFault,
+                    frame: duplicateObject(frame)
+                });
+            }
         }
 
         return frameStream;
