@@ -1,17 +1,17 @@
 function memoryManagement() {
 	var type = $('#type').val();
 	var frames = $('#frames').val();
-	var jobsInput = $('#jobs').val();	
+	var jobsInput = $('#jobs').val();
 	var jobs = jobsInput.split(',');
 	var arr = new Array(jobs.length);
-	
+
 	// Convert to object.
 	for(let i = 0; i < arr.length; i++) {
 		arr[i] = toObject(jobs[i]);
-	}	
+	}
 
 	var output = pageReplacement(arr, frames, type);
-	outputResult(jobs, output, frames);
+	outputResult(jobs, output.frameStream, frames);
 	return false;	// To prevent page refresh.
 }
 
@@ -19,7 +19,7 @@ function toObject(arr) {
 	let obj = {};
 	for (let i = 0; i < arr.length; ++i) {
 		if (arr[i] !== undefined) {
-			obj.id = Number(arr[i]);	
+			obj.id = Number(arr[i]);
 		}
 	}
   	return obj;
@@ -27,7 +27,7 @@ function toObject(arr) {
 
 // Create and insert values in new table row.
 function outputResult(jobs, output, frameLength) {
-	var table = document.getElementById("table");	
+	var table = document.getElementById("table");
 	var tableHeader = document.getElementById("table-header");
 	var header = tableHeader.createTHead();
 	let row = header.insertRow(-1);
