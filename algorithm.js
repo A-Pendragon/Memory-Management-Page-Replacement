@@ -12,7 +12,7 @@
         { id: 2 },
         { id: 1 },
         { id: 3 }
-    ], 3, "lfu"));
+    ], 3, "optimal"));
 
     // let spass = [
     //     { id: 1 },
@@ -28,7 +28,7 @@
     // console.log(spass);
 
     function pageReplacement(pageStream, frameLength, replacementType) {
-        // let pageFrequency = [];
+        let totalPageFault = 0;
         let frameHeader = 0;
         let frameStream = [];
         let frame = [];
@@ -43,12 +43,9 @@
                 if(isPageExisting){
                     pageFault = false;
                 }else{
+                    totalPageFault++;
                     frame[frameHeader] = pageStream[pageHeader];
-                    if(frameHeader+1 < frameLength){
-                        frameHeader++;
-                    }else {
-                        frameHeader = 0;
-                    }
+                    frameHeader += frameHeader+1 < frameLength ? 1 : 0;
                 }
 
                 frameStream.push({
@@ -68,6 +65,7 @@
                 if(isPageExisting){
                     pageFault = false;
                 }else{
+                    totalPageFault++;
                     if(frameHeader < frameLength){
                         frame[frameHeader] = pageStream[pageHeader];
                         frameHeader++;
@@ -101,7 +99,33 @@
         }
 
         if(replacementType === "second chance"){
+            for(let pageHeader = 0; pageHeader < pageStream.length; pageHeader++){
+                let pageFault = true;
+                let pageFound = {};
+                let isPageExisting = (pageFound = frame.find(function (page) {
+                    return page.id === pageStream[pageHeader].id;
+                })) !== undefined;
 
+                if(isPageExisting){
+                    pageFault = false;
+                    pageFound.reference = true;
+                }else{
+                    totalPageFault++;
+                    while(frame.length === frameLength && frame[frameHeader] !== undefined && frame[frameHeader].reference){
+                        frame[frameHeader].reference = false;
+                        frameHeader += frameHeader+1 < frameLength ? 1 : 0;
+                    }
+
+                    frame[frameHeader] = pageStream[pageHeader];
+                    frame[frameHeader].reference = false;
+                    frameHeader += frameHeader+1 < frameLength ? 1 : 0;
+                }
+
+                frameStream.push({
+                    pageFault: pageFault,
+                    frame: duplicateObject(frame)
+                });
+            }
         }
 
         if(replacementType === "lfu"){
@@ -116,6 +140,7 @@
                     pageFault = false;
                     pageFound.frequency++;
                 }else{
+                    totalPageFault++;
                     if(frameHeader < frameLength){
                         frame[frameHeader] = pageStream[pageHeader];
                         frame[frameHeader].frequency = 1;
@@ -139,7 +164,11 @@
             }
         }
 
-        return frameStream;
+        return {
+            frameStream: frameStream,
+            faultRate: totalPageFault / pageStream.length * 100,
+            successRate: Math.abs(pageStream.length-totalPageFault) / pageStream.length * 100
+        };
     }
 
 
