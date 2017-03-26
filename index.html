@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Page Algorithm</title>
+	<link rel="stylesheet" type="text/css" href="public/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" type="text/css" href="public/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="public/css/styles.css">
+</head>
+<body>
+	<div class="container-fluid text-center">
+		<h1>Page Algorithm</h1>
+	</div>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xs-12" style="margin-top:40px">
+
+				<!-- Panel -->
+				<div class="panel panel-default">
+					<!-- Body -->
+					<div class="panel-body">
+						<form class="form-horizontal" onsubmit="return memoryManagement();">
+							<div class="form-group">
+								<label for="type" class="col-xs-2">Type</label>
+								<div class="col-xs-7">
+									<select class="form-control" id="type">
+										<option>First In First Out</option>
+										<option>Optimal</option>
+										<option>Second Chance</option>
+										<option>Least Frequently Used</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="frames" class="col-xs-2">Frames</label>
+								<div class="col-xs-7">
+									<input type="text" class="form-control" id="frames">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="job" class="col-xs-2">Jobs</label>
+								<div class="col-xs-7">
+									<input type="text" class="form-control" id="jobs">
+								</div>
+							</div>
+
+							<div class="text-center" style="margin-top:70px;">
+								<button class="btn btn-warning btn-lg">Calculate</button>
+							</div>
+						</form>					
+					</div>		
+				</div>
+				
+				<h2 class="text-center" style="margin-bottom: 50px;">Table Representation</h2>
+
+				<!-- Table -->
+				<table class="table table-style text-center" id="table-header"></table>
+		  		<table class="table table-style text-center" id="table" style="margin-top: -21px;">	  			
+	
+		  		</table>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="public/js/scripts.js"></script>
+	<script type="text/javascript" src="public/js/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="public/js/bootstrap.min.js"></script>
+</body>
+</html>

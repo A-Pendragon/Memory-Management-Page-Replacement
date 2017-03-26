@@ -29,6 +29,7 @@ function toObject(arr) {
 function outputResult(jobs, output, frameLength) {
 	var table = document.getElementById("table");
 	var tableHeader = document.getElementById("table-header");
+    deleteAllTableRow(tableHeader, table);
 	var header = tableHeader.createTHead();
 	let row = header.insertRow(-1);
 	let cell = [];
@@ -52,6 +53,15 @@ function outputResult(jobs, output, frameLength) {
 			}
 		}
 	}
+}
+
+function deleteAllTableRow(tableHeader, table) {
+    if(tableHeader.rows.length > 0) {
+        tableHeader.deleteRow(0);   
+    }
+    while(table.rows.length > 0) {
+        table.deleteRow(0);
+    }   
 }
 
 function pageReplacement(pageStream, frameLength, replacementType) {
