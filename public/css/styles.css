@@ -20,6 +20,10 @@ body {
 	margin-bottom: 100px;
 }
 
+.title {
+  margin-top: 50px;
+}
+
 .table-style {
   width: 100%; 
 }
@@ -31,6 +35,10 @@ body {
 
 #table td {
   border-left: 1px solid #ddd;
+}
+
+table tr td {
+  font-size: 18px;
 }
 
 form label {
@@ -76,6 +84,22 @@ form {
 	padding-bottom: -20px;
 }
 
-table tr td {
-	font-size: 18px;
+#output-type {
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+
+#output-frames {
+  margin-left: 20px;
+  margin-bottom: 30px;
+}
+
+#fault-rate {
+  margin-top: 30px;
+  margin-left: 150px;
+}
+
+#success-rate {
+  margin-top: 30px;
+  margin-right: 150px;
 }

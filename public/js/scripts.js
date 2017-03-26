@@ -12,6 +12,12 @@ function memoryManagement() {
 
 	var output = pageReplacement(arr, frames, type);
 	outputResult(jobs, output.frameStream, frames);
+    document.getElementById("fault-rate").innerHTML = "Fault Rate: " + output.faultRate;
+    document.getElementById("success-rate").innerHTML = "Success Rate: " + output.successRate;
+    document.getElementById("table-title").innerHTML = "Table Representation";
+    document.getElementById("output-type").innerHTML = "Type: " + type;
+    document.getElementById("output-frames").innerHTML = "Frames: " + frames;
+    console.log(output.frameStream);
 	return false;	// To prevent page refresh.
 }
 
@@ -41,6 +47,11 @@ function outputResult(jobs, output, frameLength) {
 
 	// Insert in table
 	for(let i = 0; i < frameLength; i++) {
+        // To prevent black rows if frames is set higher than max output of rows.
+        if(i >= maxRow(output)) {
+            continue;
+        }
+
 		let row = table.insertRow(-1);
 
 		for(let j = 0; j < output.length; j++) {
@@ -53,6 +64,10 @@ function outputResult(jobs, output, frameLength) {
 			}
 		}
 	}
+}
+
+function maxRow(output) {
+    return output[output.length - 1].frame.length;;
 }
 
 function deleteAllTableRow(tableHeader, table) {

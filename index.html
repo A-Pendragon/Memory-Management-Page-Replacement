@@ -7,8 +7,12 @@
 	<link rel="stylesheet" type="text/css" href="public/css/styles.css">
 </head>
 <body>
-	<div class="container-fluid text-center">
-		<h1>Page Algorithm</h1>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xs-12 text-center title">
+				<h1>Page Algorithm</h1>
+			</div>
+		</div>
 	</div>
 
 	<div class="container-fluid">
@@ -53,13 +57,17 @@
 					</div>		
 				</div>
 				
-				<h2 class="text-center" style="margin-bottom: 50px;">Table Representation</h2>
+				<h2 id="table-title" class="text-center" style="margin-bottom: 50px;"></h2>
+
+				<h4 id="output-type"></h4>
+				<h4 id="output-frames"></h4>
 
 				<!-- Table -->
 				<table class="table table-style text-center" id="table-header"></table>
-		  		<table class="table table-style text-center" id="table" style="margin-top: -21px;">	  			
-	
-		  		</table>
+		  		<table class="table table-style text-center" id="table" style="margin-top: -21px;"></table>
+
+	  			<h3 id="fault-rate" class="pull-left"></h3>
+	  			<h3 id="success-rate" class="pull-right"></h3>
 			</div>
 		</div>
 	</div>
